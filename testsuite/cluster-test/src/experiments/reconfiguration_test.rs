@@ -223,7 +223,7 @@ impl Experiment for Reconfiguration {
                 .report_txn_stats(self.to_string(), stats, elapsed, "");
         } else {
             context.report.report_text(format!(
-                "{} finished in {} seconds",
+                "{} finished in {} second",
                 self.to_string(),
                 elapsed.as_secs()
             ));

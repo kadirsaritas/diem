@@ -157,6 +157,19 @@ jobs:
       - name: build image with dev-setup.sh
         run: docker build -f docker/ci/${{ matrix.target_os }}/Dockerfile -t diem/build_environment:test .
 
+  temp-test:
+    runs-on: ubuntu-latest-xl
+    timeout-minutes: 30
+    needs: prepare
+    if: ${{ github.event_name == 'push' && needs.prepare.outputs.build-images == 'true' }}
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: install expect
+        run: |
+          curl -X POST -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos${{ github.owner }}/${{ github.repository }}/actions/runs/${{github.run_id}}/cancel
+
   build-images:
     runs-on: ubuntu-20.04-xl
     needs: prepare
