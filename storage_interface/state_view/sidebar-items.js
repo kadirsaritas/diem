@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["default_protocol",""]],"struct":[["VerifiedStateView","`VerifiedStateView` is like a snapshot of the global state comprised of state view at two levels, persistent storage and memory."]]});

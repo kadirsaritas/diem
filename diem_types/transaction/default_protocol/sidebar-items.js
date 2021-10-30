@@ -1,0 +1,1 @@
+initSidebarItems({"type":[["AccountTransactionsWithProof",""],["TransactionInfoWithProof",""],["TransactionListWithProof",""],["TransactionOutputListWithProof",""],["TransactionWithProof",""]]});

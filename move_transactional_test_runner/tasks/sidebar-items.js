@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["RawAddress",""],["SyntaxChoice",""],["TaskCommand",""]],"fn":[["taskify",""]],"struct":[["EmptyCommand",""],["InitCommand",""],["PublishCommand",""],["RunCommand",""],["TaskInput",""],["ViewCommand",""]]});

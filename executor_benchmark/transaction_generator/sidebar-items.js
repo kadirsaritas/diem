@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TransactionGenerator",""],["TransactionGeneratorBase","The base can be tranferred across different sessions to make sure the txns are consistent."]]});

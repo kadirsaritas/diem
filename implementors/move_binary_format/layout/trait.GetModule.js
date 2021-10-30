@@ -1,0 +1,4 @@
+(function() {var implementors = {};
+implementors["move_binary_format"] = [];
+implementors["move_cli"] = [{"text":"impl <a class=\"trait\" href=\"move_binary_format/layout/trait.GetModule.html\" title=\"trait move_binary_format::layout::GetModule\">GetModule</a> for <a class=\"struct\" href=\"move_cli/sandbox/utils/on_disk_state_view/struct.OnDiskStateView.html\" title=\"struct move_cli::sandbox::utils::on_disk_state_view::OnDiskStateView\">OnDiskStateView</a>","synthetic":false,"types":["move_cli::sandbox::utils::on_disk_state_view::OnDiskStateView"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
