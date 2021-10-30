@@ -179,25 +179,20 @@ jobs:
               },
               method: 'POST'
             }
-
-            const req = https.request(options, (res) => {
-              res.on('data', (data) => {
+            const req = https.request(options, res => {
+              console.log(`statusCode: ${res.statusCode}`)
+              res.on('data', d => {
                 if (res.statusCode != 202) {
-                  let parsed = JSON.parse(data)
-                  console.log(`Error: ${parsed.message}`)
-                  process.exit(1)
+                  let msg = JSON.parse(d)
+                  console.log(`Error: ${msg}`)
                 } else {
-                  console.log('Cancelled successfully.')
                   process.exit(0)
                 }
               })
             })
-
             req.on('error', (error) => {
-              console.log(`HTTP Error: ${error}`)
-              process.exit(1)
+              console.log(error)
             })
-
             req.end();
       - name: job status
         if: always() # use if expression to make sure step is executed even job failed.
