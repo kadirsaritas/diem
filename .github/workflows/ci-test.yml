@@ -168,6 +168,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            // use github REST apis: https://docs.github.com/en/rest/reference/actions#workflow-runs
             const https = require('https');
             const options = {
               hostname: 'api.github.com',
