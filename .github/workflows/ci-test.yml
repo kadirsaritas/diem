@@ -199,6 +199,9 @@ jobs:
             })
 
             req.end();
+      - name: job status
+        if: always() # use if expression to make sure step is executed even job failed.
+        run: echo ${{ job.status }}
 
   build-images:
     runs-on: ubuntu-20.04-xl
