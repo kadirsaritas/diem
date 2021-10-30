@@ -163,41 +163,12 @@ jobs:
     needs: prepare
     if: ${{ github.event_name == 'push' && needs.prepare.outputs.build-images == 'true' }}
     steps:
-      - name: Post test results on PR
-        uses: actions/github-script@v4.0.2
+      - uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: ./.github/actions/early-terminator
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            // use github REST apis: https://docs.github.com/en/rest/reference/actions#workflow-runs
-            const https = require('https');
-            const options = {
-              hostname: 'api.github.com',
-              path: `/repos/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}/cancel`,
-              headers: {
-                'Authorization': `token ${{secrets.GITHUB_TOKEN}}`,
-                'Content-Type': 'application/json',
-                'User-Agent': 'actions/cancel-action'
-              },
-              method: 'POST'
-            }
-            const req = https.request(options, res => {
-              console.log(`statusCode: ${res.statusCode}`)
-              res.on('data', d => {
-                if (res.statusCode != 202) {
-                  let msg = JSON.parse(d)
-                  console.log(`Error: ${msg}`)
-                } else {
-                  process.exit(0)
-                }
-              })
-            })
-            req.on('error', (error) => {
-              console.log(error)
-            })
-            req.end();
-      - name: job status
-        if: always() # use if expression to make sure step is executed even job failed.
-        run: echo ${{ job.status }}
 
   build-images:
     runs-on: ubuntu-20.04-xl
@@ -267,6 +238,9 @@ jobs:
           aws ecr get-login-password --region ${{ secrets.ENV_NOVI_ECR_AWS_REGION }} | \
           docker login --username AWS --password-stdin "${AWS_ECR_ACCOUNT_URL}"
           docker/docker_republish.sh -t pre_${BRANCH}_${GIT_REV} -o land_${GIT_REV} -r ${AWS_ECR_ACCOUNT_URL} -d -i "${{ matrix.target_images }}"
+      - name: job status
+        if: always() # use if expression to make sure step is executed even job failed.
+        run: echo ${{ job.status }}
 
   need-base-images:
     runs-on: self-hosted
